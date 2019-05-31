@@ -19,7 +19,6 @@ class UsersController extends Controller
 	// 會員註冊
     public function postRegister(Request $request)
     {
-        dd(hash('sha256', '1706867132735422'));
     	$validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:users|regex:/(^[A-Za-z0-9 ]+$)+/|max:30',
             'password' => 'required|string|min:6|confirmed',
