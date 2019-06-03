@@ -5,8 +5,10 @@ namespace App\Http\Middleware;
 use Closure;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
-class TokenAuthMiddleware
+class TokenAuthMiddleware extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,13 +20,25 @@ class TokenAuthMiddleware
     public function handle($request, Closure $next)
     {
         try {
-            $user = JWTAuth::parseToken()->authenticate();
+            JWTAuth::parseToken()->authenticate();
+            return $next($request);
+        } catch (TokenExpiredException $e) {
+            try {
+                $reToken = JWTAuth::refresh(JWTAuth::getToken());
+                JWTAuth::setToken($reToken)->toUser();
+                $request->headers->set('Authorization', 'Bearer ' . $reToken);
+            } catch (JWTException $e) {
+                return response()->json([
+                    'result' => 1,
+                    'message' => $e->getMessage()
+                ], 401);
+            }
         } catch (JWTException $e) {
-            return response([
+            return response()->json([
                 'result' => 1,
                 'message' => $e->getMessage()
-            ], 403);
+            ], 401);
         }
-        return $next($request);
+        return $this->setAuthenticationHeader($next($request), $reToken);
     }
 }
