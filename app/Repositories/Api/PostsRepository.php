@@ -6,11 +6,6 @@ use App\Entities\Post;
 
 class PostsRepository
 {
-	public function postRecords()
-	{
-		return Post::orderBy('created_at', 'desc')->get();
-	}
-
 	public function createPostData($username, $content)
 	{
 		Post::create([

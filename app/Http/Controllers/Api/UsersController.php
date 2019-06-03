@@ -38,7 +38,7 @@ class UsersController extends Controller
         $this->userService->postRegisterData($request->all());
         return response()->json([
         	'result' => 0,
-        	'message' => '註冊成功'
+        	'message' => '註冊成功。'
         ], 200);
     }
     // 會員登入
