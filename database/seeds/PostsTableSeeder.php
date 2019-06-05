@@ -16,9 +16,9 @@ class PostsTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Post::create([
-                'user_id' => 'test01',
+                'user_id' => 'system_test',
                 'content' => $faker->paragraph,
             ]);
         }

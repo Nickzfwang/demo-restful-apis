@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Entities\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,6 +34,7 @@ class RegisterTest extends TestCase
     {
     	factory(\App\Entities\User::class)->create([
             'username' => 'test',
+            'name' => 'test',
             'email' => 'test@gmail.com',
             'password' => bcrypt('123456'),
         ]);

@@ -20,14 +20,7 @@ class UserTest extends TestCase
 
 	public function testUserInfoTokenError()
 	{
-		factory(\App\Entities\User::class)->create([
-            'username' => 'test',
-            'name' => 'test',
-            'email' => 'test@gmail.com',
-            'password' => bcrypt('123456'),
-        ]);
-
-        $credentials = ['username' => 'test', 'password' => '123456'];
+        $credentials = ['username' => 'system_test', 'password' => '123456'];
 
         $token = auth('api')->attempt($credentials);
 
@@ -45,14 +38,7 @@ class UserTest extends TestCase
 
     public function testLoginUserInfo()
     {
-    	factory(\App\Entities\User::class)->create([
-            'username' => 'test',
-            'name' => 'test',
-            'email' => 'test@gmail.com',
-            'password' => bcrypt('123456'),
-        ]);
-
-        $credentials = ['username' => 'test', 'password' => '123456'];
+        $credentials = ['username' => 'system_test', 'password' => '123456'];
 
         $token = auth('api')->attempt($credentials);
 

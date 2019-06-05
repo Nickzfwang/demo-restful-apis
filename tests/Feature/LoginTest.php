@@ -22,6 +22,8 @@ class LoginTest extends TestCase
     {
         factory(\App\Entities\User::class)->create([
             'username' => 'test',
+            'name' => 'test',
+            'email' => 'test@gmail.com',
             'password' => bcrypt('123456'),
         ]);
 
@@ -33,6 +35,5 @@ class LoginTest extends TestCase
                 'result',
                 'message'
             ]);
-
     }
 }
